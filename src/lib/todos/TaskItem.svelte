@@ -1,4 +1,3 @@
-
 <script>
     import remove from '$lib/assets/remove.svg';
     let { task, removeTask, onToggle } = $props();
@@ -19,9 +18,7 @@
         <input class="checkbox" type="checkbox" checked={task.done} onchange={() => onToggle(task.id)} onclick={(e) => e.stopPropagation()}>
         <li class:done={task?.done}>{task?.text}</li>
     </div>
-    <button class="button-remove"  onclick={(e) => { e.stopPropagation(); removeTask(task?.id); }}>
-        <img src={remove} alt="Delete task" width="16" height="16"/>
-    </button>
+    <button class="button-remove" onclick={(e) => { e.stopPropagation(); removeTask(task?.id); }} aria-label="Delete task"></button>
 </div>
 
 <style lang="scss">
@@ -29,13 +26,15 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        border: 1px solid #e4378d;
+        border: 1px solid var(--color-border);
         padding: 0px 15px;
+        cursor: pointer;
 
         &-name {
             display: flex;
             align-items: center;
             gap: 10px;
+            user-select: none;
         }
     }
 
@@ -55,7 +54,7 @@
     }
 
     .done {
-        border-color: #ccc;
+        border-color: var(--color-border-done);
         
         & li {
             text-decoration: line-through;
@@ -64,8 +63,17 @@
     }
 
     .button-remove {
+        width: 16px;
+        height: 16px;
+        background: var(--color-x);
+        -webkit-mask: url('/src/lib/assets/remove.svg') no-repeat center;
+        mask: url('/src/lib/assets/remove.svg') no-repeat center;
+        mask-size: contain;
+        -webkit-mask-size: contain;
         border: none;
         cursor: pointer;
+        padding: 0;
+        display: inline-block;
 
         &:hover {
             opacity: 0.7;

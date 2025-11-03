@@ -33,7 +33,8 @@
         width: 100%;
         box-sizing: border-box;
         border: none;
-        border-bottom: 1px solid black
+        border-bottom: 1px solid var(--color-border);
+        background: none;
     }
 
     input:focus {

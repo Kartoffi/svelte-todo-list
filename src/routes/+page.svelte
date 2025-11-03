@@ -12,16 +12,17 @@
 
 <div class="page-container">
     {#if browser}
-        <button on:click={() => {
+        {#if typeof window !== 'undefined' && ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) || currentScheme === 'dark')}
+            <button class="button-color-scheme-light" aria-label="Switch to Light Mode" on:click={() => {
             document.documentElement.classList.toggle('dark-mode');
             colorSchemeStore.toggleScheme();
-        }}>
-            {#if typeof window !== 'undefined' && ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) || currentScheme === 'dark')}
-                <img src={sun} alt="Light mode" width="24" height="24"/>
-            {:else}
-                <img src={moon} alt="Dark mode" width="24" height="24"/>
-            {/if}
-        </button>
+        }}></button>
+        {:else}
+            <button class="button-color-scheme-dark" aria-label="Switch to Dark Mode" on:click={() => {
+            document.documentElement.classList.toggle('dark-mode');
+            colorSchemeStore.toggleScheme();
+        }}></button>
+        {/if}
     {/if}
     <Tasks />
 </div>
@@ -61,5 +62,41 @@
         box-sizing: border-box;
         display: flex;
         justify-content: center;
+    }
+
+    .button-color-scheme-dark {
+        width: var(--color-scheme-button-size);
+        height: var(--color-scheme-button-size);
+        background: var(--color-x);
+        -webkit-mask: url('/src/lib/assets/moon.svg') no-repeat center;
+        mask: url('/src/lib/assets/moon.svg') no-repeat center;
+        mask-size: contain;
+        -webkit-mask-size: contain;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        display: inline-block;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+
+    .button-color-scheme-light {
+        width: var(--color-scheme-button-size);
+        height: var(--color-scheme-button-size);
+        background: var(--color-color-scheme-button);
+        -webkit-mask: url('/src/lib/assets/sun.svg') no-repeat center;
+        mask: url('/src/lib/assets/sun.svg') no-repeat center;
+        mask-size: contain;
+        -webkit-mask-size: contain;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        display: inline-block;
+
+        &:hover {
+            opacity: 0.7;
+        }
     }
 </style>

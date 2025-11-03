@@ -89,7 +89,8 @@
         height: 32px;
         font-size: 16px;
         background: none;
-        border: 1px solid #ccc;
+        border: 1px solid var(--color-border);
+        color: var(--color-text);
         border-radius: 4px;
     }
 </style>

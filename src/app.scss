@@ -1,0 +1,56 @@
+:root {
+  --color-bg: #fff;
+  --color-text: #111;
+  --color-primary: #e4378d;
+  --color-border: #999;
+  --color-border-done: #ccc;
+  /* Button */
+  --button-bg: #e4378d;
+  --button-text: #fff;
+  --color-x: black;
+  --color-color-scheme-button: black;
+  --color-scheme-button-size: 26px;
+  /* cursor color */
+  --color-cursor: black;
+}
+
+html.dark-mode {
+  --color-bg: #0C1713;
+  --color-text: #fff;
+  --color-primary: #e4378d;
+  --color-border: #AB4967;
+  --color-border-done: #BC8DA0;
+  /* Button */
+  --button-bg: #e4378d;
+  --button-text: #fff;
+  --color-x: white;
+  --color-color-scheme-button: white;
+  /* cursor color */
+  --color-cursor: white;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  caret-color: var(--color-cursor);
+}
+
+input, select, textarea {
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+select option {
+    background: var(--color-bg);
+    color: var(--color-text);
+    border-color: var(--color-border);
+}
+
+select, button {
+    cursor: pointer;
+}
+
+.button {
+  color: var(--color-primary);
+  border-color: var(--color-border);
+}
