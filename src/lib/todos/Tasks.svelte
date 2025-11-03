@@ -55,17 +55,41 @@
     }
 </script>
 
-<h1> Your To-Dos:</h1>
-<AddTask {addTask}/>
-<TaskFilter {filterSelected} {remaining} setFilter={setFilter} />
-<ClearCompletedTasks {clearDoneTasks} />
-
-<TaskList tasks={filteredTasks} {removeTask} toggleTask={toggleTask} />
-
-
+<div class="tasks">
+    <h1> Your To-Dos</h1>
+    <AddTask {addTask} disabled={tasks.length === 20}/>
+    {#if tasks.length > 0}
+        <div class="inline">
+            <TaskFilter {filterSelected} setFilter={setFilter} />
+            <ClearCompletedTasks {clearDoneTasks} />
+        </div>
+    {/if}
+    {#if tasks.length === 0}
+        <p>No tasks yet. Add a task to get started!</p>
+    {:else}
+    <p>{tasks.length} task{tasks.length === 1 ? '' : 's'} total, {remaining} task{remaining === 1 ? '' : 's'} left to do</p>
+    {/if}
+    <TaskList tasks={filteredTasks} {removeTask} toggleTask={toggleTask} />
+</div>
 
 <style>
-    h1 {
-        font-family: Arial, sans-serif;
+    .tasks {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .inline {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    :global(select, button) {
+        margin: 10px 0;
+        height: 32px;
+        font-size: 16px;
+        background: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
     }
 </style>
