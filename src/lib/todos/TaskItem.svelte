@@ -1,5 +1,4 @@
 <script>
-    import remove from '$lib/assets/remove.svg';
     let { task, removeTask, onToggle } = $props();
 </script>
 
@@ -26,6 +25,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 10px;
         border: 1px solid var(--color-border);
         padding: 0px 15px;
         cursor: pointer;
@@ -63,8 +63,10 @@
     }
 
     .button-remove {
-        width: 16px;
-        height: 16px;
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
+        min-height: 20px;
         background: var(--color-x);
         -webkit-mask: url('/src/lib/assets/remove.svg') no-repeat center;
         mask: url('/src/lib/assets/remove.svg') no-repeat center;
@@ -74,6 +76,8 @@
         cursor: pointer;
         padding: 0;
         display: inline-block;
+        flex-shrink: 0;
+        flex-grow: 0;
 
         &:hover {
             opacity: 0.7;

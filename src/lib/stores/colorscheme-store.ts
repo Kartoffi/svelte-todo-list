@@ -14,21 +14,16 @@ function getInitialScheme(): 'light' | 'dark' {
     return 'light';
 }
 
-export function toggleColorScheme() {
-    const colorScheme = writable<'light' | 'dark'>(getInitialScheme());
+const colorSchemeStore = writable<'light' | 'dark'>(getInitialScheme());
 
-    colorScheme.subscribe((scheme) => {
-        if (typeof localStorage !== 'undefined') {
-            localStorage.setItem(STORAGE_KEY, scheme);
-        }
-    });
-
-    function toggleScheme() {
-        colorScheme.update((scheme) => (scheme === 'light' ? 'dark' : 'light'));
+colorSchemeStore.subscribe((scheme) => {
+    if (typeof localStorage !== 'undefined') {
+        localStorage.setItem(STORAGE_KEY, scheme);
     }
+});
 
-    return {
-        ...colorScheme,
-        toggleScheme,
-    };
+export function toggleScheme() {
+    colorSchemeStore.update((scheme) => (scheme === 'light' ? 'dark' : 'light'));
 }
+
+export { colorSchemeStore };

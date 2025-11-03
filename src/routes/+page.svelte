@@ -1,27 +1,23 @@
 <script lang="ts">
     import Tasks from '$lib/todos/Tasks.svelte';
-    import sun from '$lib/assets/sun.svg';
-    import moon from '$lib/assets/moon.svg';
     import { browser } from '$app/environment';
-    import { toggleColorScheme } from '$lib/stores/colorscheme-store';
+    import { colorSchemeStore, toggleScheme } from '$lib/stores/colorscheme-store';
+    import { onMount } from 'svelte';
 
-    const colorSchemeStore = toggleColorScheme();
+    let initialized = false;
     $: currentScheme = $colorSchemeStore;
+
+    onMount(() => {
+        initialized = true;
+    });
 </script>
 
-
 <div class="page-container">
-    {#if browser}
-        {#if typeof window !== 'undefined' && ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) || currentScheme === 'dark')}
-            <button class="button-color-scheme-light" aria-label="Switch to Light Mode" on:click={() => {
-            document.documentElement.classList.toggle('dark-mode');
-            colorSchemeStore.toggleScheme();
-        }}></button>
+    {#if browser && initialized}
+        {#if currentScheme === 'dark'}
+            <button class="button-color-scheme-light" aria-label="Switch to Light Mode" on:click={toggleScheme}></button>
         {:else}
-            <button class="button-color-scheme-dark" aria-label="Switch to Dark Mode" on:click={() => {
-            document.documentElement.classList.toggle('dark-mode');
-            colorSchemeStore.toggleScheme();
-        }}></button>
+            <button class="button-color-scheme-dark" aria-label="Switch to Dark Mode" on:click={toggleScheme}></button>
         {/if}
     {/if}
     <Tasks />
