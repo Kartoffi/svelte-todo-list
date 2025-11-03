@@ -19,7 +19,7 @@ A todo-list made with Svelte.
 1. **Clone the repository:**
 
    ```sh
-   git clone https://github.com/<your-username>/svelte-todo-list.git
+   git clone https://github.com/Kartoffi/svelte-todo-list.git
    cd svelte-todo-list
    ```
 
