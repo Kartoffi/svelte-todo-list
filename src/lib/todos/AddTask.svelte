@@ -1,5 +1,5 @@
 <script lang="ts">
-    let { addTask, disabled } = $props();
+    let { add, disabled } = $props();
     let input = $state('');
 
     function onsubmit(e: Event) {
@@ -9,7 +9,7 @@
             return;
         }
 
-        addTask(input.trim());
+        add(input.trim());
         input = '';
     }
 </script>

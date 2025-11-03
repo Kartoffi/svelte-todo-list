@@ -3,24 +3,40 @@
 	import ClearCompletedTasks from "$lib/todos/ClearCompletedTasks.svelte";
     import TaskFilter from "$lib/todos/TaskFilter.svelte";
     import TaskList from "$lib/todos/TaskList.svelte";
+    import { taskStore, addTask, removeTask, toggleTask, clearCompleted } from '$lib/stores/task-store';
 
     let tasks: { id: string; text: string; done: boolean }[] = $state([]);
+
+    if ($taskStore.length > 0) {
+        tasks = $taskStore;
+    }
+
     let filterSelected = $state('all');
     let remaining = $derived(remainingTasks());
     let filteredTasks = $derived(filterTasks(filterSelected));
 
-    function addTask(input: string) {
+    function add(input: string) {
         if (input.trim() === '') return;
+
+        const id = crypto.randomUUID();
         
         tasks.push({
-            id: crypto.randomUUID(),
+            id,
             text: input,
             done: false
         });
+
+        addTask({
+            id,
+            text: input,
+            done: false
+        })
     }
 
-    function removeTask(id: string) {
+    function remove(id: string) {
         tasks = tasks.filter(task => task.id !== id);
+
+        removeTask(id);
     }
 
     function remainingTasks() {
@@ -42,22 +58,26 @@
 
     function clearDoneTasks() {
         tasks = tasks.filter(task => !task.done);
+
+        clearCompleted();
     }
 
     function setFilter(value: string) {
         filterSelected = value;
     }
 
-    function toggleTask(id: string) {
+    function toggle(id: string) {
         tasks = tasks.map(task =>
             task.id === id ? { ...task, done: !task.done } : task
         );
+
+        toggleTask(id);
     }
 </script>
 
 <div class="tasks">
     <h1> Your To-Dos</h1>
-    <AddTask {addTask} disabled={tasks.length === 20}/>
+    <AddTask {add} disabled={tasks.length === 20}/>
     {#if tasks.length === 0}
     <p>No tasks yet. Add a task to get started!</p>
     {:else}
@@ -69,7 +89,7 @@
             <ClearCompletedTasks {clearDoneTasks} />
         </div>
     {/if}
-    <TaskList tasks={filteredTasks} {removeTask} toggleTask={toggleTask} />
+    <TaskList tasks={filteredTasks} {remove} toggleTask={toggle} />
 </div>
 
 <style>

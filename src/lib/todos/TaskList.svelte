@@ -1,12 +1,12 @@
 
 <script lang="ts">
     import TaskItem from "$lib/todos/TaskItem.svelte";
-    let { tasks, removeTask, toggleTask } = $props();
+    let { tasks, remove, toggleTask } = $props();
 </script>
 
 <ul>
     {#each tasks as task}
-        <TaskItem {task} {removeTask} onToggle={toggleTask} />
+        <TaskItem {task} {remove} onToggle={toggleTask} />
     {/each}
 </ul>
 

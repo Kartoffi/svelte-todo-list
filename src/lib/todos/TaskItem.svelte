@@ -1,5 +1,5 @@
 <script>
-    let { task, removeTask, onToggle } = $props();
+    let { task, remove, onToggle } = $props();
 </script>
 
 <div
@@ -17,7 +17,7 @@
         <input class="checkbox" type="checkbox" checked={task.done} onchange={() => onToggle(task.id)} onclick={(e) => e.stopPropagation()}>
         <li class:done={task?.done}>{task?.text}</li>
     </div>
-    <button class="button-remove" onclick={(e) => { e.stopPropagation(); removeTask(task?.id); }} aria-label="Delete task"></button>
+    <button class="button-remove" onclick={(e) => { e.stopPropagation(); remove(task?.id); }} aria-label="Delete task"></button>
 </div>
 
 <style lang="scss">
