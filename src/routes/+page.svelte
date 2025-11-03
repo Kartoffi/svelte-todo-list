@@ -1,13 +1,42 @@
 <script lang="ts">
     import Tasks from '$lib/todos/Tasks.svelte';
+    import sun from '$lib/assets/sun.svg';
+    import moon from '$lib/assets/moon.svg';
+    import { browser } from '$app/environment';
+    import { toggleColorScheme } from '$lib/stores/colorscheme-store';
+
+    const colorSchemeStore = toggleColorScheme();
+    $: currentScheme = $colorSchemeStore;
 </script>
 
 
 <div class="page-container">
+    {#if browser}
+        <button on:click={() => {
+            document.documentElement.classList.toggle('dark-mode');
+            colorSchemeStore.toggleScheme();
+        }}>
+            {#if typeof window !== 'undefined' && ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) || currentScheme === 'dark')}
+                <img src={sun} alt="Light mode" width="24" height="24"/>
+            {:else}
+                <img src={moon} alt="Dark mode" width="24" height="24"/>
+            {/if}
+        </button>
+    {/if}
     <Tasks />
 </div>
 
 <style>
+    button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        margin: 0;
+        padding: 0;
+    }
     :global(html, body) {
         margin: 0;
         padding: 0;
