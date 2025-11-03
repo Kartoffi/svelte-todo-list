@@ -1,6 +1,7 @@
 # svelte-todo-list
 
 A todo-list made with Svelte.
+This was my first project trying out this really fun framework. <3
 
 **Note:** This project uses [pnpm](https://pnpm.io/) as the package manager. Please install pnpm if you don't have it yet (`npm install -g pnpm`).
 
