@@ -23,6 +23,10 @@
 {/if}
 
 <style>
+    form {
+        margin-bottom: 30px;
+    }
+
     input {
         padding: 0.5rem;
         font-size: 1rem;

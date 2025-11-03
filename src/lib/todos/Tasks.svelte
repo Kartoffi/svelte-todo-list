@@ -58,16 +58,16 @@
 <div class="tasks">
     <h1> Your To-Dos</h1>
     <AddTask {addTask} disabled={tasks.length === 20}/>
+    {#if tasks.length === 0}
+    <p>No tasks yet. Add a task to get started!</p>
+    {:else}
+    <p>{tasks.length} task{tasks.length === 1 ? '' : 's'} total, {remaining} task{remaining === 1 ? '' : 's'} left to do</p>
+    {/if}
     {#if tasks.length > 0}
         <div class="inline">
             <TaskFilter {filterSelected} setFilter={setFilter} />
             <ClearCompletedTasks {clearDoneTasks} />
         </div>
-    {/if}
-    {#if tasks.length === 0}
-        <p>No tasks yet. Add a task to get started!</p>
-    {:else}
-    <p>{tasks.length} task{tasks.length === 1 ? '' : 's'} total, {remaining} task{remaining === 1 ? '' : 's'} left to do</p>
     {/if}
     <TaskList tasks={filteredTasks} {removeTask} toggleTask={toggleTask} />
 </div>
