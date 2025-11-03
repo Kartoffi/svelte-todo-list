@@ -14,11 +14,7 @@
 
 <div class="page-container">
     {#if browser && initialized}
-        {#if currentScheme === 'dark'}
-            <button class="button-color-scheme-light" aria-label="Switch to Light Mode" on:click={toggleScheme}></button>
-        {:else}
-            <button class="button-color-scheme-dark" aria-label="Switch to Dark Mode" on:click={toggleScheme}></button>
-        {/if}
+        <button class="{`button-color-scheme-${currentScheme}`}" aria-label="{`Switch to ${currentScheme} Mode`}" on:click={toggleScheme}></button>
     {/if}
     <Tasks />
 </div>
